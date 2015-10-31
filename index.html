@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<script id="vertex-shader" type="x-shader/x-vertex">
+		attribute vec4 vPosition;
+		attribute vec4 vColor;
+		varying vec4 fColor;
+		uniform mat4 transform;
+		void main() {
+			fColor = vColor;
+			gl_Position = transform * vPosition;
+		}
+	</script>
+
+	<script id="fragment-shader" type="x-shader/x-fragment">
+		precision mediump float; varying vec4 fColor; // Note that this will be interpolated between vertices.
+		void main() {
+			gl_FragColor = fColor;
+		}
+	</script>
+
+	<script type="text/javascript" src="Common/webgl-utils.js"></script>
+	<script type="text/javascript" src="Common/initShaders.js"></script>
+	<script type="text/javascript" src="Common/MV.js"></script>
+	<script type="text/javascript" src="cube1.js"></script>
+
+	<style>
+		body {
+			background-color: #ccc;
+			text-align: center;
+			margin: 0;
+			padding: 0;
+		}
+		button {
+			display: inline-block;
+			min-width: 7.5rem;
+			padding: .75rem 1rem;
+			margin: 1rem;
+			background-color: #fff;
+			border: 0;
+			-webkit-transition-duration: .3s;
+			-o-transition-duration: .3s;
+			transition-duration: .3s;
+			font-weight: 600;
+		}
+		#xButton, #yButton, #zButton, #fButton, #bButton, #GoButton, #BackButton {
+			background-color: #fff;
+			border: 3px solid #000;
+		}
+		#xButton:hover, #yButton:hover, #zButton:hover, #fButton:hover, #bButton:hover, #GoButton:hover, #BackButton:hover  {
+			background-color: #000;
+			color: #fff;
+			border: 3px solid #fff;
+		}
+		#pButton {
+			background-color: #00FF00;
+			color: #fff;
+			border: 3px solid #fff;
+		}
+		#pButton:hover {
+			background-color: #fff;
+			color: #00FF00;
+			border: 3px solid #00FF00;
+		}
+		#dButton {
+			background-color: #6688CC;
+			color: #fff;
+			border: 3px solid #fff;
+		}
+		#dButton:hover {
+			background-color: #fff;
+			color: #6688CC;
+			border: 3px solid #6688CC;
+		}
+
+
+		.fleft {
+			float: left;
+			position: relative;
+			left: 7rem;
+			padding: 2rem;
+			width: 10rem;
+			text-align: center;
+		}
+		.fright {
+			float: right;
+			position: relative;
+			right: 7rem;
+			padding: 2rem;
+			width: 10rem;
+			text-align: center;
+		}
+		.dashboard {
+			display: inline-block;
+			height: 7rem;
+			width: 7rem;
+			background-color: #343434;
+			position: relative;
+			border-radius: 2.5rem;
+		}
+		.dashboard button {
+			padding: .5rem;
+			margin: 0;
+			position: absolute;
+			color: #fff;
+			background-color: #343434;
+			border: 2px solid #fff;
+			border-radius: 2rem;
+			min-width: 0rem;
+			-webkit-transition-duration: 0;
+			-o-transition-duration: 0;
+			transition-duration: 0;
+		}
+		.dashboard button:active {
+			background-color: #555;
+			color: #000;
+		}
+		.dashboard .up {
+			top: .5rem;
+			left: 2.5rem;
+		}
+		.dashboard .left {
+			top: 2rem;
+			left: .5rem;
+		}
+		.dashboard .right {
+			top: 2rem;
+			right: .5rem;
+		}
+		.dashboard .down {
+			bottom: 1rem;
+			left: 2.5rem;
+		}
+	</style>
+</head>
+
+<body>
+
+
+	<br/>
+	<div class="fleft">
+		<button id="xButton">Rotate X</button>
+		<button id="yButton">Rotate Y</button>
+		<button id="zButton">Rotate Z</button>
+		<button id="pButton">Pause</button>
+		<button id="dButton">Depth Test</button>
+	</div>
+
+	<div class="fright">
+		<div class="dashboard">
+			<button id="lButton" class="left">&lt;</button>
+			<button id="upButton" class="up">&#94;</button>
+			<button id="dwButton" class="down">v</button>
+			<button id="rButton" class="right">&gt;</button>
+		</div>
+		<button id="fButton">forward</button>
+		<button id="bButton">backward</button>
+		<button id="GoButton">Fov up</button>
+		<button id="BackButton">Fov down</button>
+	</div>
+
+	<canvas id="gl-canvas" width="512" height="512">
+		Oops ... your browser doesn't support the HTML5 canvas element
+	</canvas>
+</body>
+
+</html>
